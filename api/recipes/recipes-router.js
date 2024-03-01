@@ -1,13 +1,20 @@
 const router = require('express').Router()
+const Recipe = require('./recipes-model')
 
-router.use('*', (req, res, next) => {
-    res.json({ api: 'up' })
+
+router.get('/:recipe_id', (req, res, next) => {
+    Recipe.getRecipeById(req.params.recipe_id)
+        .then(resource => {
+            throw new Error('AISUEGCNRIGRINUWERC')
+            res.status(200).json(resource)
+        })
+        .catch(next)
 })
 
 router.use((err, req, res, next) => { // eslint-disable-line
     res.status(500).json({
         customMessage: 'ERROR in recipes router',
-        message: error.message,
+        message: err.message,
         stack: err.stack,
     })
 })
